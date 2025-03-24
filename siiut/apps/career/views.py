@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 
 from .models import Quarter, Level, Career, Subject
-from .forms import QuarterForm, LevelForm, CareerForm
+from .forms import QuarterForm, LevelForm, CareerForm , SubjectForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -138,4 +138,25 @@ class SubjectListView(ListView):
         context = super().get_context_data(**kwargs)
         career = Career.objects.get(pk=self.kwargs.get('career_id'))
         context['career'] = career
+        return context
+    
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = 'career/subject/create.html'
+    
+    def form_valid(self, form):
+        id_career = self.kwargs.get('career_id')
+        career = Career.objects.get(id=id_career)
+        form.instance.career = career
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        id_career = self.kwargs.get('career_id')
+        return reverse_lazy('career:subject_list', kwargs={'career_id': id_career})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id_career = self.kwargs.get('career_id')
+        context['career'] = Career.objects.get(pk=id_career)
         return context

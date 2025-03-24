@@ -29,9 +29,13 @@
             <td>{{ career.principal }}</td>
             <td>{{ career.year }}</td>
             <td>Acciones</td>
+            <td>
+            <a class="text-sky-600 ml-4" href="{% url 'career:career_details' career.id %}" title="Ver detalles">
+                <i class="ri-code-box-fill"></i>
+            </a>
+        </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 {% endblock content %}
-    

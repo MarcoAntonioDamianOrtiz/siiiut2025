@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+    
+    {% block title %}
+        <title>Crear Materia</title>
+    {% endblock %}
+    
+    {% block content %}
+        <h1 Nueva Materia {{career}}></h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Guardar">
+        </form> 
+        {% endblock content %}
