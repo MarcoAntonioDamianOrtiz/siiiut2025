@@ -24,6 +24,10 @@
       <td>{{ subject.quarter }}</td>
       <td>{{ subject.total_hours }}</td>
       <td>{{ subject.weekly_hours }}</td>
+      <td><a href="{% url 'career:subject_update' career.id subject.id %}">
+        <li class="ri-edit-2-line ri-lg"></li>
+      </a>
+    </td>
     </tr>
     {% endfor %}
   </tbody>

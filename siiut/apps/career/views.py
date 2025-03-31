@@ -155,8 +155,24 @@ class SubjectCreateView(CreateView):
         id_career = self.kwargs.get('career_id')
         return reverse_lazy('career:subject_list', kwargs={'career_id': id_career})
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id_career = self.kwargs.get('career_id')
         context['career'] = Career.objects.get(pk=id_career)
         return context
+    
+class SubjectUpdateView(UpdateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = 'career/subject/update.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id_career = self.kwargs.get('career_id')
+        context['career'] = Career.objects.get(pk=id_career)
+        return context
+    
+    def get_success_url(self):
+        id_career = self.kwargs.get('career_id')
+        return reverse_lazy('career:subject_list', kwargs={'career_id': id_career})
